@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#050b14" />
+  <meta name="description" content="KEY'S CAFÉ 稲毛海岸店 スタッフマニュアル" />
+  <title>KEY'S CAFÉ — Inage Kaigan / Manual</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { colors: { midnight: '#050b14', amberglow: '#ffb800' }, fontFamily: { sans: ['Inter','Noto Sans JP','sans-serif'] } } } };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root { color-scheme: dark; --gold:#ffb800; --ring-radius:clamp(280px, 38vw, 490px); }
+    * { box-sizing:border-box; }
+    html,body { width:100%; height:100%; margin:0; overflow:hidden; background:#050b14; }
+    body { color:#edf2fb; font-family:'Noto Sans JP',sans-serif; -webkit-font-smoothing:antialiased; }
+    button { font:inherit; }
+    #aurora-canvas { position:fixed; inset:0; width:100%; height:100%; z-index:0; opacity:.58; pointer-events:none; }
+    .aurora { position:fixed; inset:-25%; z-index:0; pointer-events:none; background:radial-gradient(ellipse at 51% 55%,transparent 15%,rgba(5,11,20,.24) 65%,#050b14 100%); }
+    .aurora:before,.aurora:after { content:""; position:absolute; width:65vw; height:60vw; min-width:620px; min-height:580px; filter:blur(90px); border-radius:50%; opacity:.16; animation:drift 18s ease-in-out infinite alternate; }
+    .aurora:before { left:10%; top:5%; background:radial-gradient(ellipse,#3159c9 0%,transparent 68%); }
+    .aurora:after { right:4%; bottom:0; background:radial-gradient(ellipse,#c78300 0%,transparent 68%); animation-delay:-8s; }
+    @keyframes drift { to { transform:translate3d(7%,5%,0) scale(1.12) rotate(8deg); } }
+    .app-shell { position:relative; z-index:1; width:100%; height:100%; display:flex; flex-direction:column; padding:clamp(22px,4vh,42px) clamp(20px,5vw,72px) 25px; }
+    .topbar { display:flex; justify-content:space-between; align-items:flex-start; flex:none; }
+    .brand { display:flex; flex-direction:column; gap:8px; }
+    .brand-mark { font-size:11px; font-weight:700; letter-spacing:.28em; color:#f3f6fc; }
+    .brand-sub { color:rgba(190,205,228,.48); font:10px 'DM Mono',monospace; letter-spacing:.17em; text-transform:uppercase; }
+    .sparkle { color:rgba(255,220,139,.72); border:0; background:none; padding:8px; font-size:17px; line-height:1; opacity:.68; cursor:default; }
+    main { min-height:0; flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; }
+    .heading { text-align:center; z-index:2; margin-top:-10px; pointer-events:none; }
+    .eyebrow { color:rgba(255,200,74,.84); font:10px 'DM Mono',monospace; letter-spacing:.32em; text-transform:uppercase; margin-bottom:15px; }
+    h1 { margin:0; font-weight:300; font-size:clamp(24px,3vw,38px); letter-spacing:.16em; }
+    .heading p { color:rgba(197,211,232,.48); font-size:11px; letter-spacing:.14em; margin:12px 0 0; }
+    .stage { width:100%; height:min(58vh,520px); min-height:330px; position:relative; display:flex; justify-content:center; align-items:center; perspective:1200px; touch-action:pan-y; cursor:grab; user-select:none; -webkit-user-select:none; }
+    .stage.dragging { cursor:grabbing; }
+    .stage:before { content:""; position:absolute; width:min(62vw,720px); height:min(62vw,720px); max-height:75vh; border:1px solid rgba(163,186,222,.08); border-radius:50%; transform:rotateX(72deg) translateY(10%); box-shadow:0 0 75px rgba(65,99,188,.08),inset 0 0 55px rgba(255,184,0,.025); }
+    .stage:after { content:""; position:absolute; width:min(36vw,430px); height:100px; left:50%; bottom:1%; transform:translateX(-50%); border-radius:50%; background:rgba(56,87,162,.16); filter:blur(45px); pointer-events:none; }
+    .ring { position:relative; width:0; height:0; transform-style:preserve-3d; will-change:transform; z-index:1; }
+    .menu-card { position:absolute; left:-126px; top:-163px; width:252px; height:326px; padding:22px; border-radius:18px; overflow:hidden; background:linear-gradient(145deg,rgba(21,34,57,.83),rgba(8,15,28,.76)); border:1px solid rgba(218,230,250,.17); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); box-shadow:0 18px 50px rgba(0,0,0,.3),inset 0 1px rgba(255,255,255,.08); transform-style:preserve-3d; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer; transition:border-color .35s,box-shadow .35s,background .35s; -webkit-tap-highlight-color:transparent; }
+    .menu-card:before { content:""; position:absolute; inset:0; opacity:.54; background:radial-gradient(ellipse at 82% 13%,var(--tone),transparent 52%); pointer-events:none; }
+    .menu-card:after { content:""; position:absolute; inset:0; border-radius:inherit; background:linear-gradient(135deg,rgba(255,255,255,.075),transparent 34%); pointer-events:none; }
+    .menu-card.is-focused { border-color:rgba(255,196,50,.72); box-shadow:0 0 0 1px rgba(255,184,0,.13),0 0 32px rgba(255,184,0,.24),0 26px 80px rgba(0,0,0,.42),inset 0 1px rgba(255,239,192,.32); }
+    .card-top,.card-bottom { position:relative; z-index:1; }
+    .card-top { display:flex; justify-content:space-between; align-items:center; }
+    .card-index { color:rgba(212,224,245,.53); font:10px 'DM Mono',monospace; letter-spacing:.12em; }
+    .card-symbol { font-size:31px; line-height:1; filter:drop-shadow(0 0 15px var(--tone)); }
+    .card-bottom { padding-bottom:2px; }
+    .card-tag { color:var(--tone); font:9px 'DM Mono',monospace; letter-spacing:.21em; text-transform:uppercase; margin-bottom:11px; }
+    .card-title { color:#f4f6fb; font-size:22px; font-weight:500; letter-spacing:.08em; margin:0 0 7px; }
+    .card-caption { color:rgba(199,211,231,.55); font-size:10px; letter-spacing:.1em; margin:0; }
+    .card-rule { width:35px; height:1px; background:var(--tone); opacity:.75; margin-top:19px; box-shadow:0 0 12px var(--tone); }
+    .interaction-hint { position:absolute; z-index:2; bottom:2%; left:50%; transform:translateX(-50%); display:flex; gap:10px; align-items:center; white-space:nowrap; color:rgba(194,208,232,.43); font:9px 'DM Mono',monospace; letter-spacing:.18em; pointer-events:none; }
+    .hint-line { width:24px; height:1px; background:rgba(194,208,232,.28); }
+    footer { flex:none; display:flex; justify-content:space-between; align-items:center; color:rgba(168,187,215,.35); font:9px 'DM Mono',monospace; letter-spacing:.13em; }
+    .footer-status { display:flex; align-items:center; gap:8px; }
+    .status-dot { width:5px; height:5px; border-radius:50%; background:#72ddb5; box-shadow:0 0 9px #72ddb5; }
+    .modal-backdrop { position:fixed; inset:0; z-index:10; display:grid; place-items:center; padding:20px; background:rgba(2,6,13,.72); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); opacity:0; visibility:hidden; transition:opacity .28s,visibility .28s; }
+    .modal-backdrop.open { opacity:1; visibility:visible; }
+    .recipe-modal { width:min(100%,480px); border-radius:20px; padding:clamp(25px,5vw,38px); background:rgba(13,22,39,.91); border:1px solid rgba(255,255,255,.17); box-shadow:0 25px 100px rgba(0,0,0,.55),0 0 45px rgba(255,184,0,.1); transform:translateY(12px) scale(.98); transition:transform .28s; }
+    .open .recipe-modal { transform:translateY(0) scale(1); }
+    .modal-head { display:flex; justify-content:space-between; align-items:flex-start; }
+    .modal-kicker { color:#ffc84d; font:10px 'DM Mono',monospace; letter-spacing:.2em; }
+    .modal-title { font-size:25px; font-weight:500; letter-spacing:.08em; margin:12px 0 4px; }
+    .modal-sub { color:rgba(195,210,235,.55); font-size:11px; }
+    .close-button { width:34px;height:34px;border:1px solid rgba(255,255,255,.15);border-radius:50%;color:rgba(239,244,252,.75);background:rgba(255,255,255,.04);cursor:pointer;font-size:18px; }
+    .recipe-content { margin-top:27px; border-top:1px solid rgba(255,255,255,.1); padding-top:18px; }
+    .recipe-label { color:rgba(170,191,222,.48);font:9px 'DM Mono',monospace;letter-spacing:.2em;margin:0 0 12px; }
+    .recipe-list { list-style:none;padding:0;margin:0;display:grid;gap:11px; }
+    .recipe-list li { display:flex; gap:12px; align-items:flex-start; color:rgba(226,234,246,.86); font-size:13px; line-height:1.65; }
+    .step-no { color:#ffc84d; font:10px 'DM Mono',monospace; padding-top:3px; }
+    .recipe-note { color:rgba(170,191,222,.45); font-size:10px; margin:22px 0 0; line-height:1.7; }
+    .menu-catalog { display:flex; gap:8px; overflow:auto; padding:0 0 12px; margin:20px 0 0; scrollbar-width:thin; }
+    .catalog-item { flex:none; color:rgba(226,234,246,.86); background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.1); border-radius:10px; padding:9px 12px; font-size:11px; cursor:pointer; }
+    .catalog-item.active { color:#ffd46b; border-color:rgba(255,184,0,.55); background:rgba(255,184,0,.08); }
+    .temp-tabs { display:flex; gap:8px; margin:22px 0 0; }
+    .temp-tab { flex:1; padding:10px; color:rgba(215,226,244,.58); border:1px solid rgba(255,255,255,.12); border-radius:10px; background:rgba(255,255,255,.035); cursor:pointer; font-size:12px; }
+    .temp-tab.active { color:#ffda83; border-color:rgba(255,184,0,.55); background:rgba(255,184,0,.08); }
+    .memo-list { display:grid; gap:8px; margin-top:14px; }
+    .memo-chip { padding:10px 12px; border:1px solid rgba(255,184,0,.25); border-radius:10px; color:#ffe3a0; background:rgba(255,184,0,.075); font-size:11px; line-height:1.6; }
+    .memo-chip.pod { border-color:rgba(138,179,255,.24); color:#c9dcff; background:rgba(94,139,220,.09); }
+    .memo-add { margin-top:14px; padding:9px 12px; border:1px solid rgba(255,255,255,.16); border-radius:10px; color:rgba(232,239,250,.8); background:rgba(255,255,255,.045); cursor:pointer; font-size:11px; }
+    .memo-form { display:none; gap:8px; margin-top:10px; }
+    .memo-form.open { display:grid; grid-template-columns:1fr auto; }
+    .memo-input { min-width:0; padding:10px; color:#f2f5fa; border:1px solid rgba(255,255,255,.16); border-radius:9px; background:rgba(2,7,15,.6); font:12px inherit; }
+    .memo-kind { grid-column:1/-1; display:flex; gap:14px; color:rgba(213,225,243,.7); font-size:10px; }
+    .memo-save { padding:0 14px; border:1px solid rgba(255,184,0,.4); border-radius:9px; color:#ffda83; background:rgba(255,184,0,.1); cursor:pointer; font-size:11px; }
+    .memo-pod { position:absolute; z-index:3; left:calc(50% + min(18vw, 185px)); top:50%; width:min(185px,27vw); padding:11px 13px; border:1px solid rgba(153,189,255,.22); border-radius:12px; background:rgba(15,25,45,.72); backdrop-filter:blur(16px); color:#c9dcff; font-size:10px; line-height:1.55; box-shadow:0 10px 35px rgba(0,0,0,.25); transform:translateY(-50%); pointer-events:none; opacity:0; transition:opacity .25s; }
+    .memo-pod.visible { opacity:1; }
+    .guide-visual { display:none; margin:14px 0 0; }
+    .guide-visual.visible { display:block; }
+    .flow-diagram { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:7px; padding:16px 10px; border:1px solid rgba(255,255,255,.1); border-radius:13px; background:rgba(255,255,255,.025); }
+    .flow-node { padding:8px 10px; border:1px solid rgba(255,184,0,.24); border-radius:9px; background:rgba(255,184,0,.06); color:#ffe2a0; font-size:11px; text-align:center; }
+    .flow-arrow { color:rgba(255,205,98,.65); font:15px 'DM Mono',monospace; }
+    .alert-banner { margin:14px 0 0; padding:13px 15px; border:1px solid rgba(255,76,82,.65); border-radius:11px; color:#ffe1e2; background:linear-gradient(100deg,rgba(137,20,32,.48),rgba(80,12,23,.38)); box-shadow:0 0 22px rgba(255,42,58,.12); font-size:12px; font-weight:600; line-height:1.7; }
+    .alert-banner strong { color:#ff737b; }
+    .focus-overlay { position:fixed; inset:0; z-index:20; display:grid; place-items:center; padding:18px; background:rgba(1,4,11,.83); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); opacity:0; visibility:hidden; transition:opacity .3s,visibility .3s; }
+    .focus-overlay.open { opacity:1; visibility:visible; }
+    .ai-window { width:min(100%,560px); height:min(78vh,660px); display:flex; flex-direction:column; padding:22px; border:1px solid rgba(255,255,255,.16); border-radius:22px; background:linear-gradient(145deg,rgba(17,29,51,.92),rgba(6,12,24,.94)); box-shadow:0 25px 100px rgba(0,0,0,.65),0 0 55px rgba(101,119,255,.14); transform:translateY(16px) scale(.98); transition:transform .3s; }
+    .focus-overlay.open .ai-window { transform:translateY(0) scale(1); }
+    .ai-head { display:flex; justify-content:space-between; align-items:center; padding-bottom:15px; border-bottom:1px solid rgba(255,255,255,.1); }
+    .ai-title { margin:0; font-size:14px; letter-spacing:.12em; font-weight:500; }
+    .ai-subtitle { color:rgba(177,197,230,.48); font:9px 'DM Mono',monospace; letter-spacing:.17em; margin-top:5px; }
+    .ai-messages { flex:1; overflow:auto; display:flex; flex-direction:column; gap:13px; padding:18px 2px; }
+    .ai-message { max-width:92%; padding:12px 14px; border:1px solid rgba(255,255,255,.1); border-radius:13px; color:rgba(233,240,251,.82); background:rgba(255,255,255,.04); font-size:12px; line-height:1.75; white-space:pre-line; }
+    .ai-message.assistant { border-color:rgba(132,152,255,.24); color:#dce4ff; background:rgba(87,103,190,.1); box-shadow:0 0 24px rgba(101,119,255,.07); }
+    .ai-message.user { align-self:flex-end; border-color:rgba(255,184,0,.2); color:#ffe4aa; background:rgba(255,184,0,.07); }
+    .ai-message .neon-step { color:#9ce8dd; }
+    .ai-shortcuts { display:flex; flex-wrap:wrap; gap:7px; }
+    .ai-shortcut { border:1px solid rgba(255,255,255,.13); border-radius:99px; padding:7px 10px; color:rgba(215,228,248,.72); background:rgba(255,255,255,.035); cursor:pointer; font-size:10px; }
+    .ai-form { display:flex; gap:8px; padding-top:13px; border-top:1px solid rgba(255,255,255,.1); }
+    .ai-input { flex:1; min-width:0; padding:12px 14px; border:1px solid rgba(255,255,255,.15); border-radius:11px; color:#f2f5fa; background:rgba(1,6,15,.55); outline:none; font:12px 'Noto Sans JP',sans-serif; }
+    .ai-input:focus { border-color:rgba(139,160,255,.55); box-shadow:0 0 16px rgba(112,133,255,.12); }
+    .ai-send { padding:0 16px; border:1px solid rgba(141,160,255,.35); border-radius:11px; color:#d9e1ff; background:rgba(112,132,255,.12); cursor:pointer; font-size:11px; }
+    .modal-scroll { max-height:min(78vh,720px); overflow:auto; scrollbar-width:thin; scrollbar-color:rgba(255,255,255,.2) transparent; }
+    .recipe-modal { max-height:calc(100dvh - 36px); overflow:auto; }
+    @media(max-width:600px) { .memo-pod { left:auto; right:3%; top:auto; bottom:8%; width:min(45vw,185px); } .recipe-modal { padding:22px; } }
+    @media(max-width:600px) {
+      :root { --ring-radius:clamp(220px,70vw,290px); }
+      .app-shell { padding:22px 22px 19px; }
+      .stage { height:53vh; min-height:300px; }
+      .menu-card { left:-111px; top:-145px; width:222px; height:290px; padding:19px; }
+      .card-title { font-size:20px; }
+      .heading { margin-top:-4px; }
+      h1 { font-size:24px; }
+      .stage:before { width:84vw;height:84vw; }
+      .interaction-hint { bottom:1%; }
+    }
+    @media(prefers-reduced-motion:reduce) { *,*:before,*:after { animation-duration:.01ms!important; transition-duration:.01ms!important; scroll-behavior:auto!important; } }
+  </style>
+</head>
+<body>
+  <canvas id="aurora-canvas" aria-hidden="true"></canvas><div class="aurora" aria-hidden="true"></div>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">KEY'S CAFÉ</span><span class="brand-sub">INAGE KAIGAN · STAFF MANUAL</span></div>
+      <button class="sparkle" id="open-ai" type="button" aria-label="AIアドバイザーを開く" title="AIアドバイザー">✨</button>
+    </header>
+    <main>
+      <div class="heading"><div class="eyebrow">QUANTUM GLASS / 01</div><h1>バリスタ・マニュアル</h1><p>今日の一杯を、丁寧に。</p></div>
+      <section class="stage" id="stage" aria-label="マニュアルメニュー。ドラッグまたはスワイプで回転できます。">
+        <div class="ring" id="ring" aria-live="polite"></div>
+        <aside class="memo-pod" id="memo-pod" aria-live="polite"></aside>
+        <div class="interaction-hint"><span class="hint-line"></span>DRAG TO EXPLORE<span class="hint-line"></span></div>
+      </section>
+    </main>
+    <footer><span>KEY'S CAFÉ · INAGE KAIGAN</span><span class="footer-status"><i class="status-dot"></i> SYSTEM READY</span></footer>
+  </div>
+  <div class="modal-backdrop" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <article class="recipe-modal">
+      <div class="modal-scroll">
+        <div class="modal-head"><div><div class="modal-kicker" id="modal-kicker">MENU / DRINKS</div><h2 class="modal-title" id="modal-title">ドリンク</h2><div class="modal-sub" id="modal-sub">商品を選択してください</div></div><button class="close-button" id="close-modal" type="button" aria-label="閉じる">×</button></div>
+        <div class="menu-catalog" id="menu-catalog" aria-label="商品一覧"></div>
+        <div class="temp-tabs" role="tablist" aria-label="温度"><button class="temp-tab active" data-temp="ice" role="tab" aria-selected="true">🧊 アイス</button><button class="temp-tab" data-temp="hot" role="tab" aria-selected="false">☕️ ホット</button></div>
+        <div class="recipe-content"><p class="recipe-label" id="recipe-label">STANDARD PROCEDURE · ICE</p><div class="guide-visual" id="guide-visual"></div><ol class="recipe-list" id="recipe-list"></ol><div class="memo-list" id="memo-list"></div><button class="memo-add" id="memo-add" type="button">＋ メモを追加</button><form class="memo-form" id="memo-form"><div class="memo-kind"><label><input type="radio" name="memo-kind" value="inline" checked> ⚡ 手順内メモ</label><label><input type="radio" name="memo-kind" value="pod"> 📌 カード横ポッド</label></div><input class="memo-input" id="memo-input" maxlength="180" placeholder="気づきや先輩のアドバイス" required><button class="memo-save" type="submit">保存</button></form><p class="recipe-note" id="recipe-note">この画面の手順は汎用のベースです。分量・機器操作・提供基準は店舗の最新レシピ表を確認してください。</p></div>
+      </div>
+    </article>
+  </div>
+  <div class="focus-overlay" id="focus-overlay" role="dialog" aria-modal="true" aria-labelledby="ai-title">
+    <section class="ai-window"><header class="ai-head"><div><h2 class="ai-title" id="ai-title">✨ AI BARISTA ADVISOR</h2><div class="ai-subtitle">INAGE KAIGAN · FOCUS MODE</div></div><button class="close-button" id="close-ai" type="button" aria-label="AIモードを閉じる">×</button></header><div class="ai-messages" id="ai-messages" aria-live="polite"><div class="ai-message assistant">こんにちは。閉店作業や機器の手順を案内します。知りたいことを入力するか、下のガイドを選んでください。</div><div class="ai-shortcuts"><button class="ai-shortcut" data-guide="レジ締め">レジ締め</button><button class="ai-shortcut" data-guide="ソフトマシン">ソフトマシン洗浄</button><button class="ai-shortcut" data-guide="機器電源OFF">20:30 機器電源OFF</button><button class="ai-shortcut" data-guide="機器清掃">機器清掃</button></div></div><form class="ai-form" id="ai-form"><input class="ai-input" id="ai-input" autocomplete="off" placeholder="業務上の疑問を入力…" aria-label="質問"><button class="ai-send" type="submit">送信</button></form></section>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    (() => {
+      const categories = [
+        { title:'ドリンク', en:'DRINKS', sub:'COFFEE · TEA · LATTE', icon:'☕', tone:'#ffc34d', products:['氷温熟成珈琲','カフェラテ','カフェモカ','キャラメルラテ','ハニーラテ','抹茶ラテ','ココア','チャイティーラテ','ロイヤルミルクティー','アイスレモネード','レモネードソーダ','アメリカン','コーヒーフロート','ココアフロート','クリームソーダ'] },
+        { title:'フード', en:'FOOD', sub:'PASTA · CURRY · SANDWICH', icon:'✳', tone:'#ff9daa', products:['昔ながらのナポリタン','トマトと挽肉のボロネーゼ','博多辛子明太子','ナスとベーコンのアラビアータ','国産バジルのジェノベーゼ','海老とトマトのクリームソース','ほうれん草とサーモンのクリームソース','カレー 1','カレー 2','カレー 3','サンドウィッチ 1','サンドウィッチ 2','サンドウィッチ 3','サンドウィッチ 4'] },
+        { title:'スイーツ', en:'SWEETS', sub:'PANCAKE · WAFFLE · DESSERT', icon:'✧', tone:'#e7c5ff', products:['スフレパンケーキ（プレーン）','スフレパンケーキ（チョコ）','スフレパンケーキ（ベリー）','ベルギーワッフル','珈琲ゼリー','とりたまバウム'] },
+        { title:'締め作業', en:'CLOSING SHIFT', sub:'CASH · CLEANING · POWER OFF', icon:'⌁', tone:'#82b7ff', products:['20:30〜 機器電源OFF','CCT・自社レジ締め','事務所預け入れ','機器清掃','月曜18時 ソフトマシン洗浄'] }
+      ];
+      const ring=document.getElementById('ring'), stage=document.getElementById('stage'), modal=document.getElementById('modal');
+      const storageKey='keys-cafe-inage-manual-memos-v1';
+      const readMemos=()=>{try{return JSON.parse(localStorage.getItem(storageKey)||'{}')}catch{return {}}};
+      let memos=readMemos(), activeCategory=0, activeProduct='', temperature='ice';
+      const step=Math.PI*2/categories.length; let angle=0, velocity=0, dragging=false, lastX=0, lastT=0, downX=0, moved=false;
+      const cards=categories.map((item,i)=>{ const el=document.createElement('button'); el.type='button'; el.className='menu-card'; el.style.setProperty('--tone',item.tone); el.setAttribute('aria-label',item.title+'メニューを開く'); el.innerHTML=`<span class="card-top"><span class="card-index">MODULE / 0${i+1}</span><span class="card-symbol" aria-hidden="true">${item.icon}</span></span><span class="card-bottom"><span class="card-tag">${item.en}</span><h2 class="card-title">${item.title}</h2><p class="card-caption">${item.sub}</p><span class="card-rule"></span></span>`; el.addEventListener('click',()=>{ if(!moved && Math.abs(velocity)<.035) openRecipe(i); }); ring.appendChild(el); return el; });
+      function radius(){ return Math.min(490,Math.max(280,innerWidth*.38)); }
+      function render(){ ring.style.transform=`translateZ(calc(var(--ring-radius) * -0.12)) rotateY(${angle}rad)`; cards.forEach((card,i)=>{ const a=i*step+angle; card.style.transform=`rotateY(${i*360/categories.length}deg) translateZ(${radius()}px)`; const d=Math.atan2(Math.sin(a),Math.cos(a)); card.classList.toggle('is-focused',Math.abs(d)<step*.48); card.style.zIndex=String(Math.round((Math.cos(d)+1)*50)); card.style.opacity=String(.48+.52*Math.max(0,Math.cos(d))); card.tabIndex=Math.abs(d)<step*.48?0:-1; }); renderPod(); }
+      function tick(){ if(!dragging){ angle+=velocity; velocity*=.94; if(Math.abs(velocity)<.00008) velocity=0; } render(); requestAnimationFrame(tick); }
+      stage.addEventListener('pointerdown',e=>{ if(e.target.closest('.menu-card')){ downX=e.clientX; moved=false; } else downX=e.clientX; dragging=true; stage.classList.add('dragging'); lastX=e.clientX; lastT=performance.now(); velocity=0; stage.setPointerCapture(e.pointerId); });
+      stage.addEventListener('pointermove',e=>{ if(!dragging)return; const dx=e.clientX-lastX, now=performance.now(); if(Math.abs(e.clientX-downX)>5)moved=true; angle+=dx/Math.max(radius(),240); velocity=(dx/Math.max(radius(),240))*Math.min(1,(now-lastT)/16); lastX=e.clientX;lastT=now; });
+      const endDrag=()=>{dragging=false;stage.classList.remove('dragging');setTimeout(()=>moved=false,80);}; stage.addEventListener('pointerup',endDrag);stage.addEventListener('pointercancel',endDrag);
+      stage.addEventListener('keydown',e=>{ if(e.key==='ArrowRight'){angle-=step;velocity=0;} if(e.key==='ArrowLeft'){angle+=step;velocity=0;} if(e.key==='Enter'||e.key===' '){const idx=((Math.round(-angle/step)%categories.length)+categories.length)%categories.length;openRecipe(idx);} });
+      const catalog=document.getElementById('menu-catalog');
+      function selectProduct(name){activeProduct=name;catalog.querySelectorAll('.catalog-item').forEach(b=>b.classList.toggle('active',b.textContent===name));document.getElementById('modal-sub').textContent=`${categories[activeCategory].title} · ${name}`;const closing=categories[activeCategory].en==='CLOSING SHIFT';document.querySelector('.temp-tabs').style.display=closing?'none':'flex';document.getElementById('memo-add').style.display=closing?'none':'inline-block';document.getElementById('recipe-note').style.display=closing?'none':'block';renderProcedure();renderMemos();}
+      function openRecipe(index){activeCategory=index;const cat=categories[index];document.getElementById('modal-kicker').textContent=`MENU / ${cat.en}`;document.getElementById('modal-title').textContent=cat.title;catalog.replaceChildren(...cat.products.map(name=>{const b=document.createElement('button');b.type='button';b.className='catalog-item';b.textContent=name;b.addEventListener('click',()=>selectProduct(name));return b;}));selectProduct(cat.products[0]);modal.classList.add('open');document.getElementById('close-modal').focus();}
+      function productKey(){return `${activeCategory}:${activeProduct}`;}
+      function stepsFor(){const cat=categories[activeCategory], ice=temperature==='ice'; if(cat.en==='CLOSING SHIFT'){if(activeProduct.startsWith('20:30'))return ['20:30を目安にショーケースの電源をOFF','ソフトマシンの自動洗浄を開始し、完了を確認','洗浄完了後、ソフトマシンのPOWER OFFを確認','カップウォーマーの電源をOFF','お湯マシンの電源をOFF','ミルカーの電源をOFF'];if(activeProduct.startsWith('CCT'))return ['CCTの締め処理を店舗手順書に沿って行う','自社レジで実釣銭・理論売上を確認','イオン商品券がある場合、額面を理論売上から差し引いて照合','差異を確認し、責任者へ報告して記録する'];if(activeProduct.startsWith('事務所'))return ['現金・帳票を店舗規定どおりに確認する','4階事務所へ持参し、所定の預け入れ場所へ納める','暗証番号を入力して入室後、扉の施錠を確認する'];if(activeProduct==='機器清掃')return ['ハーモニーを停止し、取り外せる部品を分解する','粉受け部に残った粉を白いダスターで拭き上げる','食洗機は栓を抜きやすい向き・位置に整えて排水する','シンク内・排水口・周辺を洗浄し、水気を拭き取る'];return ['洗浄前に必要な部品・洗浄用具を準備する','ソフトマシンの自動洗浄を実行し、指定部品を洗浄する','パーツを図の順に組み立てる：白の筒 → 奥の穴 → 板パーツ','4箇所のネジを対角線（❌の順）に少しずつ均等に締める','組み立て・漏れ・動作を確認し、責任者へ完了報告する'];} if(cat.en==='DRINKS'){const base=['オーダー内容・サイズ・カスタマイズを確認する',ice?'グラスに氷を準備し、必要に応じてスプーンを洗浄する':'カップを準備し、必要に応じてハーモニーマシンの該当ボタンを選ぶ',ice?'材料を順に加え、氷を入れる前によく混ぜる':'必要な場合はミルクをスチームし、温度と泡の状態を確認する','仕上がりと提供温度を確認し、指定の器で提供する']; if(/ラテ|モカ|ココア|チャイ|ミルクティー|抹茶/.test(activeProduct))base[1]=ice?'グラスに氷を準備し、スプーンを洗って清潔にする':'カップを準備し、ハーモニーマシンでベースを選択する'; if(ice)base[2]='ベースとミルク等を加えてよく混ぜ、氷を加える'; return base;} if(cat.en==='FOOD')return ['オーダーと商品名、アレルギー表示を確認する','商品別レシピ表に従い、必要な食材・器具を準備する','規定の加熱機器・時間・盛り付け手順に従って仕上げる','温度、見た目、付け合わせを確認して提供する']; return ['オーダー内容と商品バリエーションを確認する','商品別レシピ表に従い、解凍・加熱・盛り付けを行う','トッピングと付属品を確認し、仕上がりを整える','商品名と提供状態を確認して提供する'];}
+      function renderProcedure(){const list=document.getElementById('recipe-list'), key=productKey(), inline=(memos[key]||[]).filter(m=>m.kind==='inline'), closing=categories[activeCategory].en==='CLOSING SHIFT';list.replaceChildren();const visual=document.getElementById('guide-visual');visual.replaceChildren();visual.classList.toggle('visible',closing);if(closing){if(activeProduct.startsWith('20:30'))addFlow(['ショーケース','ソフトマシン自動洗浄','POWER OFF','カップウォーマー','お湯マシン','ミルカー']);else if(activeProduct.startsWith('月曜')){const title=document.createElement('div');title.className='recipe-label';title.textContent='MONDAY · 18:00 / PARTS ASSEMBLY';visual.append(title);addFlow(['① 白の筒','② 奥の穴','③ 板パーツ','④ 4箇所ネジ締め']);const warning=document.createElement('div');warning.className='alert-banner';warning.innerHTML='<strong>対角線（❌の順）</strong>に、4箇所を少しずつ均等に締める。1箇所を一気に締め切らない。';visual.append(warning);}else if(activeProduct.startsWith('CCT')){const warning=document.createElement('div');warning.className='alert-banner';warning.innerHTML='<strong>イオン商品券がある場合：</strong>「実釣銭理論売上」から商品券額面を必ず引き算して照合してください。';visual.append(warning);}else if(activeProduct.startsWith('事務所')){const pin=document.createElement('div');pin.className='alert-banner';pin.textContent='4階事務所 暗証番号：9758';visual.append(pin);}else if(activeProduct==='機器清掃')addFlow(['ハーモニー分解・粉受け拭き','食洗機の栓・排水','シンク清掃']);}stepsFor().forEach((s,i)=>{const li=document.createElement('li');const no=document.createElement('span');no.className='step-no';no.textContent=String(i+1).padStart(2,'0');const body=document.createElement('span');body.textContent=s;li.append(no,body);list.append(li);if(i===1)inline.forEach(m=>{const note=document.createElement('li');note.className='memo-chip';note.textContent=`⚡️ [MY MEMO] ${m.text}`;list.append(note);});});document.getElementById('recipe-label').textContent=closing?'CLOSING SHIFT · STEP GUIDE':`STANDARD PROCEDURE · ${temperature.toUpperCase()}`;}
+      function addFlow(labels){const flow=document.createElement('div');flow.className='flow-diagram';labels.forEach((label,i)=>{const node=document.createElement('div');node.className='flow-node';node.textContent=label;flow.append(node);if(i<labels.length-1){const arrow=document.createElement('span');arrow.className='flow-arrow';arrow.textContent='➜';flow.append(arrow);}});document.getElementById('guide-visual').append(flow);}
+      function renderMemos(){const box=document.getElementById('memo-list');box.replaceChildren();(memos[productKey()]||[]).filter(m=>m.kind==='pod').forEach(m=>{const el=document.createElement('div');el.className='memo-chip pod';el.textContent=`📌 ${m.text}`;box.append(el);});}
+      function renderPod(){const idx=((Math.round(-angle/step)%categories.length)+categories.length)%categories.length;const pod=document.getElementById('memo-pod');const note=Object.entries(memos).find(([k,list])=>k.startsWith(`${idx}:`)&&list.some(m=>m.kind==='pod'));if(note){pod.textContent=`📌 ${note[1].find(m=>m.kind==='pod').text}`;pod.classList.add('visible');}else{pod.classList.remove('visible');pod.textContent='';}}
+      document.querySelectorAll('.temp-tab').forEach(tab=>tab.addEventListener('click',()=>{temperature=tab.dataset.temp;document.querySelectorAll('.temp-tab').forEach(t=>{const active=t===tab;t.classList.toggle('active',active);t.setAttribute('aria-selected',String(active));});renderProcedure();}));
+      document.getElementById('memo-add').addEventListener('click',()=>{const form=document.getElementById('memo-form');form.classList.toggle('open');if(form.classList.contains('open'))document.getElementById('memo-input').focus();});
+      document.getElementById('memo-form').addEventListener('submit',e=>{e.preventDefault();const input=document.getElementById('memo-input'),text=input.value.trim();if(!text)return;const kind=new FormData(e.currentTarget).get('memo-kind');(memos[productKey()] ||= []).push({kind,text,createdAt:Date.now()});try{localStorage.setItem(storageKey,JSON.stringify(memos));}catch{alert('保存できませんでした。ブラウザの保存領域をご確認ください。');return;}input.value='';e.currentTarget.classList.remove('open');renderProcedure();renderMemos();renderPod();});
+      const focusOverlay=document.getElementById('focus-overlay'), aiMessages=document.getElementById('ai-messages');
+      function openAI(){focusOverlay.classList.add('open');document.getElementById('ai-input').focus();}
+      function closeAI(){focusOverlay.classList.remove('open');document.getElementById('open-ai').focus();}
+      function addMessage(text,who='assistant'){const div=document.createElement('div');div.className=`ai-message ${who}`;div.textContent=text;aiMessages.append(div);aiMessages.scrollTop=aiMessages.scrollHeight;}
+      const guideFor=q=>{if(/レジ|CCT|商品券|理論売上/.test(q))return {product:'CCT・自社レジ締め',answer:'CCT・自社レジの締め手順を確認してください。\n商品券がある場合は、実釣銭理論売上から商品券額面を差し引いて照合します。'};if(/ソフト|月曜|ネジ/.test(q))return {product:'月曜18時 ソフトマシン洗浄',answer:'組み立て順は ①白の筒 → ②奥の穴 → ③板パーツ → ④4箇所ネジ締め。\nネジは❌の対角線順に、均等に締めます。'};if(/電源|20.?30|ショーケース/.test(q))return {product:'20:30〜 機器電源OFF',answer:'20:30〜の順序：ショーケース → ソフトマシン自動洗浄 → POWER OFF → カップウォーマー → お湯マシン → ミルカー。'};if(/事務所|預け|暗証|番号/.test(q))return {product:'事務所預け入れ',answer:'現金・帳票を確認して4階事務所へ預け入れます。入室暗証番号は 9758 です。'};if(/清掃|ハーモニー|食洗|シンク/.test(q))return {product:'機器清掃',answer:'ハーモニーは分解し、粉受け部を白いダスターで拭き上げます。食洗機は栓を抜きやすい向きに整え、シンクも洗浄します。'};return {product:'20:30〜 機器電源OFF',answer:'締め作業ガイドを確認してください。画面の「締め作業」カテゴリから、レジ・機器清掃・電源OFF・ソフトマシン洗浄を選べます。'};};
+      function askAdvisor(question){const q=question.trim();if(!q)return;addMessage(q,'user');const result=guideFor(q);setTimeout(()=>{addMessage(result.answer);const action=document.createElement('button');action.className='ai-shortcut';action.textContent='該当ガイドを開く';action.addEventListener('click',()=>{closeAI();openRecipe(3);catalog.querySelectorAll('.catalog-item').forEach(b=>{if(b.textContent===result.product)b.click();});});const row=document.createElement('div');row.className='ai-shortcuts';row.append(action);aiMessages.append(row);aiMessages.scrollTop=aiMessages.scrollHeight;},220);}
+      document.getElementById('open-ai').addEventListener('click',openAI);document.getElementById('close-ai').addEventListener('click',closeAI);focusOverlay.addEventListener('click',e=>{if(e.target===focusOverlay)closeAI();});
+      document.querySelectorAll('.ai-shortcut[data-guide]').forEach(b=>b.addEventListener('click',()=>askAdvisor(b.dataset.guide)));
+      document.getElementById('ai-form').addEventListener('submit',e=>{e.preventDefault();const input=document.getElementById('ai-input');askAdvisor(input.value);input.value='';});
+      function closeModal(){modal.classList.remove('open');} document.getElementById('close-modal').addEventListener('click',closeModal); modal.addEventListener('click',e=>{if(e.target===modal)closeModal();}); document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+      document.addEventListener('keydown',e=>{if(e.key==='Escape'&&focusOverlay.classList.contains('open'))closeAI();});
+      window.addEventListener('resize',render); render(); tick();
+      // A sparse Three.js particle field adds a quiet, shifting aurora behind the glass UI.
+      try { const canvas=document.getElementById('aurora-canvas'), renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true}); renderer.setPixelRatio(Math.min(devicePixelRatio,1.6)); renderer.setSize(innerWidth,innerHeight); const scene=new THREE.Scene(), camera=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,100); camera.position.z=32; const count=160, positions=new Float32Array(count*3), colors=new Float32Array(count*3); for(let i=0;i<count;i++){positions[i*3]=(Math.random()-.5)*48;positions[i*3+1]=(Math.random()-.5)*30;positions[i*3+2]=(Math.random()-.5)*28; const gold=Math.random()>.56; colors[i*3]=gold?1:.23;colors[i*3+1]=gold?.62:.43;colors[i*3+2]=gold?.12:.94;} const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(positions,3));geo.setAttribute('color',new THREE.BufferAttribute(colors,3));const mat=new THREE.PointsMaterial({size:.085,vertexColors:true,transparent:true,opacity:.8,depthWrite:false});const points=new THREE.Points(geo,mat);scene.add(points); let t=0; function draw(){t+=.002;points.rotation.y=t*.11;points.rotation.x=Math.sin(t)*.035;renderer.render(scene,camera);requestAnimationFrame(draw);}draw();window.addEventListener('resize',()=>{renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();}); } catch(e) { /* CSS aurora remains as a graceful fallback if WebGL is unavailable. */ }
+    })();
+  </script>
+</body>
+</html>
