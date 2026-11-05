@@ -4,8 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#050b14" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="description" content="KEY'S CAFÉ 稲毛海岸店 スタッフマニュアル" />
   <title>KEY'S CAFÉ — Inage Kaigan / Manual</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="assets/key-orb.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -16,7 +20,10 @@
   <div class="app-shell">
     <header class="topbar">
       <div class="brand"><span class="brand-mark">KEY'S CAFÉ</span><span class="brand-sub">INAGE KAIGAN · STAFF MANUAL</span></div>
-      <button class="advisor-trigger" id="open-ai" type="button" aria-label="AIアドバイザーを開く" title="AIアドバイザー">◈</button>
+      <div class="header-actions">
+        <button class="settings-trigger" id="open-settings" type="button" aria-label="設定・メモ共有" title="設定・メモ共有">⚙</button>
+        <button class="advisor-trigger" id="open-ai" type="button" aria-label="AIアドバイザーを開く" title="AIアドバイザー">◈</button>
+      </div>
     </header>
     <main>
       <div class="heading"><div class="eyebrow">QUANTUM GLASS / 01</div><h1>バリスタ・マニュアル</h1><p>今日の一杯を、丁寧に。</p></div>
@@ -53,6 +60,9 @@
   </div>
   <div class="focus-overlay" id="focus-overlay" role="dialog" aria-modal="true" aria-labelledby="ai-title">
     <section class="ai-window"><header class="ai-head"><div><h2 class="ai-title" id="ai-title">◈ AI BARISTA ADVISOR</h2><div class="ai-subtitle">INAGE KAIGAN · FOCUS MODE</div></div><button class="close-button" id="close-ai" type="button" aria-label="AIモードを閉じる">×</button></header><div class="ai-messages" id="ai-messages" aria-live="polite"><div class="ai-message assistant">こんにちは。閉店作業や機器の手順を案内します。知りたいことを入力するか、下のガイドを選んでください。</div><div class="ai-shortcuts"><button class="ai-shortcut" data-guide="レジ締め">レジ締め</button><button class="ai-shortcut" data-guide="ソフトマシン">ソフトマシン洗浄</button><button class="ai-shortcut" data-guide="機器電源OFF">20:30 機器電源OFF</button><button class="ai-shortcut" data-guide="機器清掃">機器清掃</button></div></div><form class="ai-form" id="ai-form"><input class="ai-input" id="ai-input" autocomplete="off" placeholder="業務上の疑問を入力…" aria-label="質問"><button class="ai-send" type="submit">送信</button></form></section>
+  </div>
+  <div class="modal-backdrop settings-backdrop" id="settings-modal" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+    <section class="settings-panel"><header class="modal-head"><div><div class="modal-kicker">LOCAL DATA</div><h2 class="modal-title" id="settings-title">メモの共有</h2><div class="modal-sub">この端末に保存したメモをJSONで移行できます。</div></div><button class="close-button" id="close-settings" type="button" aria-label="設定を閉じる">×</button></header><div class="settings-actions"><button class="settings-action" id="export-memos" type="button">↓ メモをエクスポート</button><button class="settings-action" id="import-memos" type="button">↑ JSONをインポート</button><input id="memo-file" type="file" accept="application/json,.json" hidden></div><p class="settings-status" id="settings-status" aria-live="polite">エクスポートしたJSONを別の端末で読み込めます。</p></section>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="src/data/menuData.js"></script>

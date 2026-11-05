@@ -32,6 +32,7 @@
       document.addEventListener('keydown', e => { if (e.key === 'Escape' && overlay.classList.contains('open')) close(); });
       document.querySelectorAll('.ai-shortcut[data-guide]').forEach(button => button.addEventListener('click', () => ask(button.dataset.guide)));
       document.getElementById('ai-form').addEventListener('submit', e => { e.preventDefault(); ask(input.value); input.value = ''; });
+      return { open, close };
     }
   };
 })();
