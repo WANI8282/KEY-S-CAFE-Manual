@@ -54,6 +54,7 @@
     .modal-kicker { color:#ffc84d; font:10px 'DM Mono',monospace; letter-spacing:.2em; }
     .modal-title { font-size:25px; font-weight:500; letter-spacing:.08em; margin:12px 0 4px; }
     .modal-sub { color:rgba(195,210,235,.55); font-size:11px; }
+    .modal-price { margin-top:5px;color:#ffda75;font:500 12px 'DM Mono',monospace;letter-spacing:.04em; }
     .close-button { width:34px;height:34px;border:1px solid rgba(255,255,255,.15);border-radius:50%;color:rgba(239,244,252,.75);background:rgba(255,255,255,.04);cursor:pointer;font-size:18px; }
     .recipe-content { margin-top:27px; border-top:1px solid rgba(255,255,255,.1); padding-top:18px; }
     .recipe-label { color:rgba(170,191,222,.48);font:9px 'DM Mono',monospace;letter-spacing:.2em;margin:0 0 12px; }

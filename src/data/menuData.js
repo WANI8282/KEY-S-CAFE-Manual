@@ -18,4 +18,6 @@ window.MENU_RECIPES = {
   productCaution: '氷はカップ側面の2本ある白い線の【上の線】まで。ドリンクは白線より少し上にある、複数あるくぼみのうち【一番下のくぼみ】まで注ぎます。',
   memoStorageKey: 'keys-cafe-inage-manual-memos-v1'
 };
-window.menuData = { categories: window.MENU_CATEGORIES, recipes: window.MENU_RECIPES };
+// Exact store prices are intentionally populated only from an approved price list.
+window.MENU_PRICES = window.MENU_PRICES || {};
+window.menuData = { categories: window.MENU_CATEGORIES, recipes: window.MENU_RECIPES, prices: window.MENU_PRICES };

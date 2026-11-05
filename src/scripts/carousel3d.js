@@ -2,7 +2,7 @@
   window.Carousel3D = {
     init({ categories, ring, stage, onSelect, onFocus, onSnap = () => {} }) {
       const step = Math.PI * 2 / categories.length;
-      let angle = 0, velocity = 0, dragging = false, lastX = 0, lastT = 0, downX = 0, moved = false, snapTarget = null, lastWheel = 0, lastFocus = -1;
+      let angle = 0, velocity = 0, dragging = false, lastX = 0, lastT = 0, downX = 0, moved = false, suppressClick = false, snapTarget = null, lastWheel = 0, lastFocus = -1;
       const radius = () => Math.min(490, Math.max(280, innerWidth * .38));
       const centerIndex = () => ((Math.round(-angle / step) % categories.length) + categories.length) % categories.length;
       function updateTilt(card, event) {
@@ -19,7 +19,7 @@
         el.addEventListener('pointerleave', () => resetTilt(el));
         el.setAttribute('aria-label', `${item.title}メニューを開く`);
         el.innerHTML = `<span class="card-top"><span class="card-index">MODULE / 0${i + 1}</span><span class="card-symbol" aria-hidden="true">${item.icon}</span></span><span class="card-bottom"><span class="card-tag">${item.en}</span><h2 class="card-title">${item.title}</h2><p class="card-caption">${item.sub}</p><span class="card-rule"></span></span>`;
-        el.addEventListener('click', () => { if (!moved && Math.abs(velocity) < .035) onSelect(i); });
+        el.addEventListener('click', event => { if (suppressClick) { event.preventDefault(); return; } onSelect(i); });
         ring.append(el); return el;
       });
       function render() {
@@ -63,7 +63,7 @@
         velocity = dx / Math.max(radius(), 240) * Math.min(1, (now - lastT) / 16);
         lastX = e.clientX; lastT = now;
       });
-      const endDrag = () => { if(!dragging)return; dragging = false; stage.classList.remove('dragging'); snapTarget = -Math.round(-(angle + velocity * 4) / step) * step; velocity = 0; if(touchedCard)resetTilt(touchedCard); touchedCard=null; setTimeout(() => { moved = false; }, 100); };
+      const endDrag = () => { if(!dragging)return; dragging = false; stage.classList.remove('dragging'); snapTarget = -Math.round(-(angle + velocity * 4) / step) * step; velocity = 0; if(touchedCard)resetTilt(touchedCard); touchedCard=null; if(moved){suppressClick=true;setTimeout(()=>{suppressClick=false;},350);} moved = false; };
       stage.addEventListener('pointerup', endDrag); stage.addEventListener('pointercancel', endDrag);
       function goBy(direction) { const destination = centerIndex() + direction; snapTarget = -destination * step; velocity = 0; }
       function goTo(index) { const base = -index * step; snapTarget = base + Math.round((angle - base) / (Math.PI * 2)) * Math.PI * 2; velocity = 0; }
