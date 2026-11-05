@@ -49,7 +49,9 @@
         if (e.target.closest('.carousel-arrow')) return;
         touchedCard = e.target.closest('.menu-card'); if (touchedCard) updateTilt(touchedCard, e);
         downX = e.clientX; moved = false; dragging = true; stage.classList.add('dragging');
-        lastX = e.clientX; lastT = performance.now(); velocity = 0; snapTarget = null; stage.setPointerCapture(e.pointerId);
+        lastX = e.clientX; lastT = performance.now(); velocity = 0; snapTarget = null;
+        // Capture on the pressed card so pointer capture does not retarget its click to the stage.
+        (touchedCard || stage).setPointerCapture(e.pointerId);
       });
       stage.addEventListener('pointermove', e => {
         const stageRect = stage.getBoundingClientRect(); stage.style.setProperty('--pointer-x', `${e.clientX - stageRect.left}px`); stage.style.setProperty('--pointer-y', `${e.clientY - stageRect.top}px`);

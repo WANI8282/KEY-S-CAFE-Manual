@@ -21,6 +21,10 @@
     <header class="topbar">
       <div class="brand"><span class="brand-mark">KEY'S CAFÉ</span><span class="brand-sub">INAGE KAIGAN · STAFF MANUAL</span></div>
       <div class="header-actions">
+        <div class="view-mode-switch" id="view-mode-switch" role="group" aria-label="表示モード">
+          <button type="button" data-view="carousel" aria-pressed="true">3Dカルーセル</button>
+          <button type="button" data-view="grid" aria-pressed="false">グリッド一覧</button>
+        </div>
         <button class="settings-trigger" id="open-settings" type="button" aria-label="設定・メモ共有" title="設定・メモ共有">⚙</button>
         <button class="advisor-trigger" id="open-ai" type="button" aria-label="AIアドバイザーを開く" title="AIアドバイザー">◈</button>
       </div>
@@ -40,6 +44,10 @@
         <div class="interaction-hint"><span class="hint-line"></span>DRAG TO EXPLORE<span class="hint-line"></span></div>
       </section>
       <nav class="category-shortcuts" id="category-shortcuts" aria-label="カテゴリへ移動"></nav>
+      <section class="desktop-workspace" id="desktop-workspace" aria-label="メニュー一覧と詳細">
+        <aside class="desktop-menu-panel"><div class="desktop-panel-heading">MENU INDEX<span>SELECT AN ITEM</span></div><nav class="desktop-category-list" id="desktop-category-list" aria-label="メニューカテゴリ"></nav><div class="desktop-product-list" id="desktop-product-list" aria-label="商品一覧"></div></aside>
+        <section class="desktop-detail-panel" id="desktop-detail" aria-live="polite"><div class="desktop-empty">左の一覧から商品を選択してください。</div></section>
+      </section>
     </main>
     <footer><span>KEY'S CAFÉ · INAGE KAIGAN</span><span class="footer-status"><i class="status-dot"></i> SYSTEM READY</span></footer>
   </div>
