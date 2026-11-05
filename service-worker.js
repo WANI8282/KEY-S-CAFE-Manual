@@ -1,8 +1,9 @@
-const CACHE_NAME = 'keys-cafe-manual-shell-v9';
+const CACHE_NAME = 'keys-cafe-manual-shell-v10';
 const SHELL = [
   './', './index.html', './manifest.json', './assets/key-orb.svg',
   './src/styles/main.css', './src/data/menuData.js', './src/data/scheduleData.js',
   './src/data/closingData.js', './src/data/trayData.js', './src/data/shelfLifeData.js',
+  './src/data/animationData.js',
   './src/scripts/carousel3d.js', './src/scripts/aiFocus.js', './src/scripts/app.js'
 ];
 

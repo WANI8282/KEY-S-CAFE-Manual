@@ -48,7 +48,7 @@
     .status-dot { width:5px; height:5px; border-radius:50%; background:#72ddb5; box-shadow:0 0 9px #72ddb5; }
     .modal-backdrop { position:fixed; inset:0; z-index:10; display:grid; place-items:center; padding:20px; background:rgba(2,6,13,.72); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); opacity:0; visibility:hidden; transition:opacity .28s,visibility .28s; }
     .modal-backdrop.open { opacity:1; visibility:visible; }
-    .recipe-modal { width:90vw;max-width:1100px;border-radius:20px;padding:clamp(20px,3vw,34px);background:rgba(13,22,39,.94);border:1px solid rgba(255,255,255,.17);box-shadow:0 25px 100px rgba(0,0,0,.55),0 0 45px rgba(255,184,0,.1);transform:translateY(12px) scale(.98);transition:transform .28s; }
+    .recipe-modal { width:92vw;max-width:1150px;min-height:80vh;border-radius:20px;padding:clamp(20px,3vw,34px);background:rgba(13,22,39,.94);border:1px solid rgba(255,255,255,.17);box-shadow:0 25px 100px rgba(0,0,0,.55),0 0 45px rgba(255,184,0,.1);transform:translateY(12px) scale(.98);transition:transform .28s; }
     .recipe-modal[data-temperature="ice"] { box-shadow:0 25px 100px rgba(0,0,0,.58),0 0 48px rgba(54,190,255,.13); }
     .recipe-modal[data-temperature="hot"] { box-shadow:0 25px 100px rgba(0,0,0,.58),0 0 48px rgba(255,174,48,.16); }
     .open .recipe-modal { transform:translateY(0) scale(1); }
@@ -58,12 +58,14 @@
     .modal-sub { color:rgba(195,210,235,.55); font-size:11px; }
     .modal-price { margin-top:5px;color:#ffda75;font:500 12px 'DM Mono',monospace;letter-spacing:.04em; }
     .close-button { width:34px;height:34px;border:1px solid rgba(255,255,255,.15);border-radius:50%;color:rgba(239,244,252,.75);background:rgba(255,255,255,.04);cursor:pointer;font-size:18px; }
-    .recipe-content { margin-top:18px;border-top:1px solid rgba(255,255,255,.1);padding-top:18px;display:grid;grid-template-columns:380px minmax(0,1fr);column-gap:24px;grid-template-areas:"product visual" "label visual" "steps visual" "memos visual" "add visual" "form visual" "note visual";align-content:start; }
+    .recipe-content { margin-top:18px;border-top:1px solid rgba(255,255,255,.1);padding-top:18px;display:grid;grid-template-columns:380px minmax(0,1fr);column-gap:28px;grid-template-areas:"product visual" "label visual" "steps visual" "memos visual" "add visual" "form visual" "note visual";align-content:start; }
     .selected-product-summary { grid-area:product;padding:0 0 14px;border-bottom:1px solid rgba(255,255,255,.08); }
     .selected-product-title { margin:5px 0 0;color:#f5f7fc;font-size:clamp(20px,2vw,28px);font-weight:500;letter-spacing:.04em;line-height:1.35; }
     .recipe-label { grid-area:label;color:rgba(170,191,222,.48);font:9px 'DM Mono',monospace;letter-spacing:.2em;margin:0 0 12px; }
     .recipe-list { grid-area:steps;list-style:none;padding:0;margin:0;display:grid;gap:11px; }
     .recipe-list li { display:flex; gap:12px; align-items:flex-start; color:rgba(226,234,246,.86); font-size:13px; line-height:1.65; }
+    .recipe-list li.recipe-step { padding:8px 9px;border:1px solid transparent;border-radius:10px;cursor:pointer;transition:background .25s,border-color .25s,box-shadow .25s; }
+    .recipe-list li.recipe-step:hover,.recipe-list li.recipe-step:focus-visible,.recipe-list li.recipe-step.is-active { border-color:rgba(82,215,255,.38);background:rgba(40,158,210,.1);box-shadow:0 0 18px rgba(51,187,235,.1);outline:none; }
     .step-no { color:#ffc84d; font:10px 'DM Mono',monospace; padding-top:3px; }
     .recipe-note { grid-area:note;color:rgba(170,191,222,.45);font-size:10px;margin:22px 0 0;line-height:1.7; }
     .menu-catalog { display:flex; gap:8px; overflow:auto; padding:0 0 12px; margin:20px 0 0; scrollbar-width:thin; }
@@ -226,6 +228,26 @@
     .cup-copy,.cup-line-caption { fill:rgba(237,246,255,.82);font:10px 'Noto Sans JP',sans-serif; }
     .cup-diagram .cup-level-fill { fill:rgba(69,192,255,.17);stroke:none; }
     .cup-diagram .cup-ridges { fill:none;stroke:rgba(216,246,255,.66);stroke-width:2;stroke-dasharray:3 4; }
+    .cup-key-logo { fill:none;stroke:#fff;stroke-width:9;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 8px rgba(255,255,255,.9)); }
+    .cup-brand { fill:#fff;stroke:none;font:700 16px 'Noto Sans JP',sans-serif;letter-spacing:.08em;filter:drop-shadow(0 0 7px rgba(255,255,255,.9)); }
+    .cup-scale { fill:rgba(218,240,255,.68);font:12px 'DM Mono',monospace; }
+    .cup-line-upper.is-active { stroke-width:7;filter:drop-shadow(0 0 10px #5beaff); }
+    .cup-dimple-active.is-active { stroke-width:8;filter:drop-shadow(0 0 10px #ffcb53); }
+    [data-animation-fill] { transition:y .8s ease,height .8s ease; }
+    .animation-playback { display:grid;grid-template-columns:130px minmax(0,1fr);align-items:center;gap:18px;margin-top:22px;padding:16px;border:1px solid rgba(112,202,255,.22);border-radius:16px;background:linear-gradient(115deg,rgba(17,43,70,.45),rgba(13,24,43,.55)); }
+    .animation-stage { position:relative;display:grid;place-items:center;min-height:148px;perspective:550px;border:1px solid rgba(126,211,255,.13);border-radius:12px;background:linear-gradient(rgba(99,185,240,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(99,185,240,.07) 1px,transparent 1px),rgba(4,13,25,.55);background-size:18px 18px; }
+    .animation-stage:after { content:"";position:absolute;left:10%;right:10%;bottom:12%;height:1px;background:linear-gradient(90deg,transparent,#68dcff,transparent);box-shadow:0 0 15px #4cd5ff; }
+    .animation-stage-label { position:absolute;left:8px;top:7px;color:rgba(161,224,250,.68);font:8px 'DM Mono',monospace;letter-spacing:.08em; }
+    .mini-cup-3d { position:relative;width:62px;height:91px;overflow:hidden;clip-path:polygon(8% 0,92% 0,82% 100%,18% 100%);border:1px solid rgba(218,245,255,.8);background:linear-gradient(115deg,rgba(206,246,255,.24),rgba(49,129,176,.08) 50%,rgba(221,250,255,.18));transform:rotateY(-22deg) rotateX(4deg);transform-style:preserve-3d;box-shadow:inset 8px 0 12px rgba(255,255,255,.13),0 0 18px rgba(70,205,255,.16);animation:mini-cup-float 3.5s ease-in-out infinite; }
+    .mini-cup-fill { position:absolute;left:0;right:0;bottom:0;height:var(--fill-level,0%);background:linear-gradient(0deg,rgba(41,142,197,.52),rgba(103,227,255,.38));transition:height .8s ease; }
+    .animation-stage[data-step="3"] .mini-cup-fill { background:linear-gradient(0deg,rgba(70,37,20,.84),rgba(150,92,42,.62)); }
+    .mini-key { position:absolute;z-index:1;left:50%;top:45%;width:38px;transform:translate(-50%,-50%);filter:drop-shadow(0 0 6px #fff); }
+    .mini-key svg { display:block;width:100%;stroke:#fff;stroke-width:5;fill:none;stroke-linecap:round;stroke-linejoin:round; }
+    .animation-copy { display:grid;gap:12px; }
+    .animation-description { color:#e9f8ff;font-size:13px;line-height:1.65; }
+    .animation-play { justify-self:start;min-height:44px;padding:9px 14px;border:1px solid rgba(93,214,255,.42);border-radius:10px;color:#c6f5ff;background:rgba(41,149,197,.15);cursor:pointer; }
+    .animation-play:disabled { opacity:.6;cursor:wait; }
+    @keyframes mini-cup-float { 0%,100%{transform:rotateY(-22deg) rotateX(4deg) translateY(0)}50%{transform:rotateY(22deg) rotateX(-2deg) translateY(-5px)} }
     .cup-callout-copy { margin:14px 0 0;padding:12px 14px;border:1px solid;border-radius:12px;font-size:clamp(12px,1.15vw,15px);font-weight:600;line-height:1.65; }
     .ice-copy { color:#c5f6ff;border-color:rgba(82,219,255,.45);background:rgba(25,139,190,.13);box-shadow:inset 0 0 20px rgba(47,182,232,.07),0 0 18px rgba(52,197,255,.09); }
     .drink-copy { color:#ffe2a1;border-color:rgba(255,195,83,.42);background:rgba(166,100,18,.14);box-shadow:inset 0 0 20px rgba(255,184,63,.06),0 0 18px rgba(255,184,63,.08); }
@@ -270,12 +292,14 @@
     }
     @media(max-width:768px) {
       .modal-backdrop { padding:8px; }
-      .recipe-modal { width:96vw;max-width:720px;padding:18px;border-radius:16px; }
+      .recipe-modal { width:96vw;max-width:720px;min-height:0;padding:18px;border-radius:16px; }
       .modal-scroll { max-height:92dvh; }
       .temp-tabs { width:100%;margin-top:16px; }
       .recipe-content { grid-template-columns:minmax(0,1fr);column-gap:0;grid-template-areas:"product" "label" "steps" "memos" "add" "form" "note" "visual"; }
       .guide-visual { margin-top:18px; }
       .cup-diagram,.hot-mug-diagram { padding:12px; }
       .cup-diagram svg,.hot-mug-diagram svg { max-height:none; }
+      .animation-playback { grid-template-columns:100px minmax(0,1fr);gap:12px;padding:12px; }
+      .animation-stage { min-height:130px; }
       .menu-catalog { margin-top:14px; }
     }
