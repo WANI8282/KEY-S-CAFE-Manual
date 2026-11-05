@@ -187,3 +187,21 @@
     @media(max-width:600px) { .settings-trigger { width:44px;height:44px; } }
     .menu-card { transition:border-color .35s,box-shadow .35s,background .35s,filter .18s ease-out; }
     .menu-card.is-focused { border-color:transparent;background:linear-gradient(145deg,rgba(21,34,57,.66),rgba(8,15,28,.61)) padding-box,radial-gradient(circle at var(--glow-x) var(--glow-y),rgba(255,222,112,.9),rgba(255,184,0,.26) 28%,rgba(218,230,250,.15) 68%) border-box; }
+    .data-timeline { display:grid;gap:7px;margin-top:12px; }
+    .data-timeline-row { display:grid;grid-template-columns:60px minmax(110px,.8fr) minmax(130px,1.4fr);gap:8px;align-items:center;padding:10px 11px;border:1px solid rgba(255,255,255,.09);border-radius:10px;background:rgba(255,255,255,.035); }
+    .data-time { color:#ffdc70;font:600 12px 'DM Mono',monospace; }
+    .data-title { color:#f0f4fb;font-size:12px; }
+    .data-detail { color:rgba(213,225,243,.69);font-size:10px;line-height:1.55; }
+    .data-emphasis { grid-column:2/-1;color:#ffe08a;font-size:10px; }
+    .tray-layout { display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0; }
+    .tray-position { min-height:88px;display:grid;align-content:center;gap:7px;padding:11px;border:1px solid rgba(255,184,0,.2);border-radius:12px;background:linear-gradient(145deg,rgba(255,184,0,.08),rgba(255,255,255,.025));text-align:center; }
+    .tray-position-label { color:#ffdc70;font:10px 'DM Mono',monospace;letter-spacing:.08em; }
+    .tray-position span { color:rgba(231,238,249,.82);font-size:11px;line-height:1.5; }
+    .data-step-list { display:grid;gap:10px;list-style:none;margin:14px 0 0;padding:0; }
+    .data-step-list li { display:flex;gap:10px;color:#f1f4fa;font-size:13px;line-height:1.65; }
+    .shelf-table { width:100%;min-width:610px;border-collapse:separate;border-spacing:0;font-size:10px; }
+    .shelf-table th,.shelf-table td { padding:10px 9px;border-bottom:1px solid rgba(255,255,255,.09);text-align:left;vertical-align:top;line-height:1.5; }
+    .shelf-table th { position:sticky;top:0;color:#ffdf86;background:#101c30; }
+    .shelf-table td { color:rgba(231,238,249,.79); }
+    .shelf-table td:first-child { color:#f7f8fc;font-weight:600; }
+    @media(max-width:600px) { .data-timeline-row { grid-template-columns:52px 1fr; } .data-detail,.data-emphasis { grid-column:2/-1; } .tray-layout { grid-template-columns:1fr; } .tray-position { min-height:62px; } }
