@@ -13,3 +13,4 @@ window.CLOSING_ANSWERS = [
   { match:/事務所|預け|暗証|番号/, product:'事務所預け入れ', answer:'4階事務所へ預け入れます。入室暗証番号は9758です。' },
   { match:/清掃|ハーモニー|食洗|シンク/, product:'機器清掃', answer:'ハーモニーの粉受け部は白いダスターで拭き上げます。食洗機の栓は抜きやすい向きに整え、シンクも清掃します。' }
 ];
+window.closingData = { guides: window.CLOSING_GUIDES, answers: window.CLOSING_ANSWERS };

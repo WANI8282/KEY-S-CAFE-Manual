@@ -67,14 +67,15 @@
   <div class="modal-backdrop settings-backdrop" id="settings-modal" role="dialog" aria-modal="true" aria-labelledby="settings-title">
     <section class="settings-panel"><header class="modal-head"><div><div class="modal-kicker">LOCAL DATA</div><h2 class="modal-title" id="settings-title">メモの共有</h2><div class="modal-sub">この端末に保存したメモをJSONで移行できます。</div></div><button class="close-button" id="close-settings" type="button" aria-label="設定を閉じる">×</button></header><div class="settings-actions"><button class="settings-action" id="export-memos" type="button">↓ メモをエクスポート</button><button class="settings-action" id="import-memos" type="button">↑ JSONをインポート</button><input id="memo-file" type="file" accept="application/json,.json" hidden></div><p class="settings-status" id="settings-status" aria-live="polite">エクスポートしたJSONを別の端末で読み込めます。</p></section>
   </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="src/data/menuData.js"></script>
-  <script src="src/data/scheduleData.js"></script>
-  <script src="src/data/closingData.js"></script>
-  <script src="src/data/trayData.js"></script>
-  <script src="src/data/shelfLifeData.js"></script>
-  <script src="src/scripts/carousel3d.js"></script>
-  <script src="src/scripts/aiFocus.js"></script>
-  <script src="src/scripts/app.js"></script>
+  <!-- Classic deferred scripts preserve this dependency order and expose data on window. -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script defer src="src/data/menuData.js"></script>
+  <script defer src="src/data/scheduleData.js"></script>
+  <script defer src="src/data/closingData.js"></script>
+  <script defer src="src/data/trayData.js"></script>
+  <script defer src="src/data/shelfLifeData.js"></script>
+  <script defer src="src/scripts/carousel3d.js"></script>
+  <script defer src="src/scripts/aiFocus.js"></script>
+  <script defer src="src/scripts/app.js"></script>
 </body>
 </html>

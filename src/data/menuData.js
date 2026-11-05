@@ -18,3 +18,4 @@ window.MENU_RECIPES = {
   productCaution: '氷はカップ側面の2本ある白い線の【上の線】まで。ドリンクは白線より少し上にある、複数あるくぼみのうち【一番下のくぼみ】まで注ぎます。',
   memoStorageKey: 'keys-cafe-inage-manual-memos-v1'
 };
+window.menuData = { categories: window.MENU_CATEGORIES, recipes: window.MENU_RECIPES };

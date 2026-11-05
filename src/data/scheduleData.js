@@ -19,3 +19,4 @@ window.SCHEDULE_DATA = {
     { time:'21:30', task:'閉店時刻', detail:'閉店チェックリストに沿って最終確認。', emphasis:'閉店' }
   ]
 };
+window.scheduleData = window.SCHEDULE_DATA;

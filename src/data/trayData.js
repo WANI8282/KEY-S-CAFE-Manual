@@ -14,3 +14,4 @@ window.TRAY_DATA = {
     { position:'空いたスペース', label:'カトラリー・紙ナプキン・付属品' }
   ]
 };
+window.trayData = window.TRAY_DATA;

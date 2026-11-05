@@ -13,3 +13,4 @@ window.SHELF_LIFE_DATA = {
     { item:'ケーキ・デザート類', storage:'商品表示・店舗基準を確認', rule:'商品表示／解凍・開封後の店舗基準', record:'解凍・開封日時、担当者、期限' }
   ]
 };
+window.shelfLifeData = window.SHELF_LIFE_DATA;
