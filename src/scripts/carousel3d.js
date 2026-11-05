@@ -30,7 +30,7 @@
         if (!dragging) {
           if (snapTarget !== null) {
             const difference = snapTarget - angle;
-            angle += difference * .19;
+            angle += difference * .24;
             if (Math.abs(difference) < .0015) { angle = snapTarget; snapTarget = null; velocity = 0; }
           } else { angle += velocity; velocity *= .93; if (Math.abs(velocity) < .00008) velocity = 0; }
         }
@@ -52,6 +52,7 @@
       const endDrag = () => { if(!dragging)return; dragging = false; stage.classList.remove('dragging'); snapTarget = -Math.round(-(angle + velocity * 4) / step) * step; velocity = 0; setTimeout(() => { moved = false; }, 100); };
       stage.addEventListener('pointerup', endDrag); stage.addEventListener('pointercancel', endDrag);
       function goBy(direction) { const destination = centerIndex() + direction; snapTarget = -destination * step; velocity = 0; }
+      function goTo(index) { const base = -index * step; snapTarget = base + Math.round((angle - base) / (Math.PI * 2)) * Math.PI * 2; velocity = 0; }
       stage.addEventListener('wheel', e => {
         e.preventDefault(); const now = performance.now();
         if (now - lastWheel < 260 || Math.abs(e.deltaY || e.deltaX) < 10) return;
@@ -63,7 +64,7 @@
         if (e.key === 'Enter' || e.key === ' ') onSelect(centerIndex());
       });
       window.addEventListener('resize', render); render(); tick();
-      return { getCenterIndex: centerIndex, next: () => goBy(1), previous: () => goBy(-1) };
+      return { getCenterIndex: centerIndex, next: () => goBy(1), previous: () => goBy(-1), goTo };
     }
   };
 })();

@@ -137,3 +137,36 @@
       .interaction-hint { bottom:1%; }
     }
     @media(prefers-reduced-motion:reduce) { *,*:before,*:after { animation-duration:.01ms!important; transition-duration:.01ms!important; scroll-behavior:auto!important; } }
+
+    /* Field-use refinements: readable recipe values and generous touch targets. */
+    .modal-backdrop { background:rgba(5,11,20,.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px); }
+    .recipe-list li { font-size:15px;line-height:1.8;color:#f3f6fc; }
+    .step-no { min-width:28px;color:#ffdc55;font:600 14px 'DM Mono',monospace;padding-top:4px;text-shadow:0 0 12px rgba(255,203,48,.55); }
+    .memo-chip { color:#fff0a5;border-color:rgba(255,205,54,.58);background:rgba(255,184,0,.14);font-size:14px;line-height:1.7;text-shadow:0 0 10px rgba(255,202,45,.23); }
+    .recipe-list li.memo-chip { color:#fff0a5;font-size:15px;border-color:rgba(255,205,54,.58); }
+    .memo-chip.pod { color:#e2edff;border-color:rgba(138,179,255,.46);font-size:13px;text-shadow:none; }
+    .catalog-item,.temp-tab,.memo-add,.memo-save,.close-button,.ai-send,.ai-shortcut { min-height:44px; }
+    .advisor-trigger { min-width:44px;min-height:44px;width:44px;height:44px; }
+    .catalog-item { padding:10px 14px; }
+    .temp-tab { padding:11px 12px; }
+    .memo-add { padding:10px 14px; }
+    .close-button { width:44px;height:44px;flex:none; }
+    .carousel-arrow { width:58px;height:66px;background:rgba(13,24,43,.48);border-color:rgba(206,221,248,.24);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:rgba(238,244,255,.8); }
+    .holo-core { width:clamp(290px,32vw,390px);filter:drop-shadow(0 0 42px color-mix(in srgb,var(--tone),transparent 48%)); }
+    .holo-core:before { inset:2%;border-color:color-mix(in srgb,var(--tone),transparent 48%);background:radial-gradient(circle,color-mix(in srgb,var(--tone),transparent 84%) 0 19%,color-mix(in srgb,var(--tone),transparent 95%) 43%,transparent 72%);box-shadow:inset 0 0 56px color-mix(in srgb,var(--tone),transparent 77%),0 0 65px color-mix(in srgb,var(--tone),transparent 72%); }
+    .core-orbit { border-color:color-mix(in srgb,var(--tone),transparent 32%);box-shadow:0 0 19px color-mix(in srgb,var(--tone),transparent 65%); }
+    .core-emblem { opacity:.96;filter:drop-shadow(0 0 21px var(--tone)); }
+    .core-caption { font-size:10px;opacity:1; }
+    .category-shortcuts { position:relative;z-index:5;display:flex;justify-content:center;flex-wrap:wrap;gap:9px;margin:clamp(-5px,-1vh,-1px) 0 14px; }
+    .category-shortcut { min-width:90px;min-height:46px;padding:10px 17px;border:1px solid rgba(198,216,246,.18);border-radius:999px;color:rgba(224,234,250,.72);background:rgba(12,23,42,.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);cursor:pointer;font-size:12px;letter-spacing:.06em;transition:color .2s,border-color .2s,background .2s,box-shadow .2s; }
+    .category-shortcut:hover,.category-shortcut:focus-visible { color:#fff0b6;border-color:rgba(255,207,76,.55); }
+    .category-shortcut.active { color:#ffe28a;border-color:rgba(255,196,45,.68);background:rgba(255,184,0,.12);box-shadow:0 0 20px rgba(255,184,0,.14),inset 0 0 14px rgba(255,184,0,.05); }
+    @media(max-width:600px) {
+      .stage { height:min(49vh,410px);min-height:280px; }
+      .holo-core { width:clamp(260px,75vw,315px); }
+      .carousel-arrow { width:54px;height:58px; }
+      .category-shortcuts { gap:7px;margin:1px 0 9px; }
+      .category-shortcut { flex:1 1 calc(50% - 7px);max-width:170px;min-height:46px; }
+      .recipe-list li { font-size:14px; }
+      .memo-chip { font-size:14px; }
+    }
